@@ -6,7 +6,7 @@ A simple module to fetch and analyze `butter-themes` from github repositories.
 ```
 ### Usage
 ```JS
-  const bot = require('honey-butter');
+  const bot = require('butter-themes-search');
         //Search for themes
         bot.search((themes) => {
             themes.map((a, b) => console.log(a, b));
