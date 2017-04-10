@@ -1,7 +1,7 @@
 const search = require('../index.js');
 
 //Init....
-console.log(" Searching themes... \n");
+console.log(" Searching for themes... \n");
 
 search((results) => {
     let themes = [],
