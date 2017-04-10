@@ -51,10 +51,8 @@ m.search = (callback) => utils.getJson(config, (data) => {
 
         //Store parsed themes...
         let themes = [];
-
         //Raw package.json form repository
         temp.map((item, index) => {
-
             //Raw package.json form repository
             rawJson({
                 user: item.owner.login,
@@ -62,17 +60,13 @@ m.search = (callback) => utils.getJson(config, (data) => {
                 branch: item.default_branch,
                 filename: 'package.json'
             }, (package) => {
-
-                //Get theme relevant data...
+                //Get theme relevant data & push it!
                 let theme = parsePackage(package, item);
-                let last = temp.leght - 1;
-
-                //Push parsed theme
-                themes.push(item);
+                themes[index] = theme;
 
                 //Send all themes
-                if (index === last) {
-                    Callback(themes);
+                if (index === temp.length - 1) {
+                    callback(themes);
                 }
         });
     });
