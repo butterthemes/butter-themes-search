@@ -54,10 +54,5 @@ m.search = (callback) => utils.getJson(config, (data) => {
             }
         })
     });
-
-    m.search((theme,index, results) => {
-        //
-        console.log(theme,index,results);
-    });
-
+    
 module.exports = m;
