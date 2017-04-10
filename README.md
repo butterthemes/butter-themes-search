@@ -1,15 +1,14 @@
 # Honey-butter
 A simple bot that helps to fetch and analyze `butter-themes` from github.
 ### Install
-``` 
+```
   npm install honey-butter
 ```
 ### Usage
 ```JS
   const bot = require('honey-butter');
         //Search for themes
-        bot.search((theme, index)=> {
-          console.log(theme.name, theme.version, index);
-          //-> butter-theme-dark, '0.0.1', 0
+        bot.search((themes) => {
+            themes.map((a, b) => console.log(a, b));
         });
 ```
