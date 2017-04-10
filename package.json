@@ -1,15 +1,15 @@
 {
     "name": "butter-themes-search",
-    "description": "A simple module that helps to fetch an butter-themes",
+    "description": "A simple module to fetch and analizye butter-themes",
     "version": "0.0.1",
     "main": "index.js",
-    "repository": "btzr-io/honey-butter",
-    "bugs": "https://github.com/btzr-io/honey-butter/issues",
+    "repository": "btzr-io/butter-themes-search",
+    "bugs": "https://github.com/btzr-io/butter-themes-search/issues",
     "author": "Baltazar Gomez <btzr.io@gmail>",
-    "license": "MIT",
+    "license": "GPL-3.0",
     "keywords": [
-        "bot",
         "butter",
+        "search"
         "theme",
         "themes"
     ],
