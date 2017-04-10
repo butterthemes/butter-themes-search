@@ -2,30 +2,30 @@ const api = require("./src/api")
 const utils = require("./src/utils");
 
 //Raw file from github repository
-const getRaw = (opts, fn) => utils.getJson({
+const getRaw = (opts, callback) => utils.getJson({
     hostname: api.raw,
     path: '/' + opts.user + '/' + opts.repository + '/' + (opts.branch || 'master') + '/' + opts.filename,
     headers: api.headers
-}, fn);
+}, callback);
 
 //Parse relevant information from package.json / github repository
-const parsePackage = (package, repository) => { return {
+const parsePackage = (package, repository) => ({
     name: (package.name || repository.name),
     version: (package.version || "0.0.0"),
     description: (package.description|| repository.description),
-    author: (repository.owner.login || package.author),
+    author: repository.owner.login,
     stats: {
         stars: repository.stargazers_count,
         forks: repository.forks_count,
-        tags: repository.topics,
+        tags: repository.topics
     },
     url: {
         repository: repository.html_url,
         git: repository.git_url,
         css: "https://" + api.raw + "/" + repository.name + "/" + repository.name + repository.default_branch + "/index.css",
-        butter:  repository.html_url.replace('https://', api.protocol),
+        butter:  repository.html_url.replace('https://', api.protocol)
         }
-}};
+});
 
 //Search request opts
 const config = {
@@ -37,22 +37,27 @@ const config = {
 //Modeule methods
 const m = {};
 m.search = (callback) => utils.getJson(config, (data) => {
+        //Store vaLid themes
+        let themes = [];
         data.items.map((item, index) => {
             //Check for themes...
             if (item.name.substring(0, 13) == "butter-theme-") {
-                //Raw package.json form repository
-                getRaw({
-                    user: item.owner.login,
-                    repository: item.name,
-                    branch: item.default_branch || 'master',
-                    filename: 'package.json'
-                }, (package) => {
-                    //Get theme relevant data...
-                    let theme = parsePackage(package, item);
-                    callback(theme, index, data.total_count);
-                })
+                themes.push(item);
             }
-        })
+        });
+        //Raw package.json form repository
+        themes.map((item, index) => {
+        getRaw({
+            user: item.owner.login,
+            repository: item.name,
+            branch: item.default_branch || 'master',
+            filename: 'package.json'
+        }, (package) => {
+            //Get theme relevant data...
+            let theme = parsePackage(package, item);
+            callback(theme, index);
+        });
     });
+});
 
 module.exports = m;
