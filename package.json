@@ -1,6 +1,6 @@
 {
-    "name": "honey-butter",
-    "description": "A simple bot for butter-themes",
+    "name": "butter-themes-search",
+    "description": "A simple module that helps to fetch an butter-themes",
     "version": "0.0.1",
     "main": "index.js",
     "repository": "btzr-io/honey-butter",
