@@ -14,6 +14,7 @@ const parsePackage = (package, repository) => ({
     version: (package.version || "0.0.0"),
     description: (package.description|| repository.description),
     author: repository.owner.login,
+    official: (repository.owner.login === "butterthemes") ? true : false,
     stats: {
         stars: repository.stargazers_count,
         forks: repository.forks_count,

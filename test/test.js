@@ -4,5 +4,8 @@ console.log(" @honeyButter is searching... \n");
 
 honeyButter.search((themes) => {
     console.log(" @honeyButter found: " + themes.length + " themes.");
-    themes.map( (item, index) => console.log(" --- butter-theme:",item.name, item.version, "["+index+"]"));
+    themes.map( (item, index) => {
+        let verify = (item.official) ? "official" : "third-party";
+        console.log(" --- butter-theme("+ verify +"):",item.name, item.version, "["+index+"]");
+    });
 });
