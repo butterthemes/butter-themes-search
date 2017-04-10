@@ -11,7 +11,7 @@
         "bot",
         "butter",
         "theme",
-        "themes",
+        "themes"
     ],
     "scripts": {
         "test": "node ./test/test.js"
