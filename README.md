@@ -1,5 +1,5 @@
 # Honey-butter
-A simple bot that searches for `butter-themes` from github.
+A simple bot that attemps to analize and search `butter-themes` from github.
 ### Install
 ``` 
   npm install honey-butter
