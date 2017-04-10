@@ -1,6 +1,13 @@
 const api = require("./src/api")
 const utils = require("./src/utils");
 
+//Raw file from github repository
+const getRaw = (opts, fn) => utils.getJson({
+    hostname: api.raw,
+    path: '/' + opts.user + '/' + opts.repository + '/' + (opts.branch || 'master') + '/' + opts.filename,
+    headers: api.headers
+}, fn);
+
 //Parse relevant information from package.json / github repository
 const parsePackage = (package, repository) => { return {
     name: (package.name || repository.name),
@@ -19,13 +26,6 @@ const parsePackage = (package, repository) => { return {
         butter:  repository.html_url.replace('https://', api.protocol),
         }
 }};
-
-//Raw file from github repository
-const getRaw = (opts, fn) => utils.getJson({
-    hostname: api.raw,
-    path: '/' + opts.user + '/' + opts.repository + '/' + opts.branch + '/' + opts.filename,
-    headers: api.headers
-}, fn);
 
 //Search request opts
 const config = {
@@ -54,5 +54,5 @@ m.search = (callback) => utils.getJson(config, (data) => {
             }
         })
     });
-    
+
 module.exports = m;
