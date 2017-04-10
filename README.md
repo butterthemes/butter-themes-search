@@ -1,8 +1,8 @@
-# Honey-butter
-A simple bot that helps to fetch and analyze `butter-themes` from github.
-### Install
+# buttter-themes-search
+A simple module to fetch and analyze `butter-themes` from github repositories.
+### Install 
 ```SHELL
-  npm install honey-butter
+  npm install buttter-themes-search
 ```
 ### Usage
 ```JS
@@ -16,12 +16,13 @@ A simple bot that helps to fetch and analyze `butter-themes` from github.
 ```SHELL
 npm test
 
-> honey-butter@0.0.1 test ./honey-butter/test/test.js
+> butter-themes-search@0.0.1 test ./butter-themes-search/test/test.js
 > node ./test/test.js
 
- @honeyButter is searching...
+ Searching for themes...
 
- @honeyButter found: 2 themes.
+ Results found: 2 official themes, 0 third-party, 2 total themes
  --- butter-theme: butter-theme-pink 0.0.1 [0]
  --- butter-theme: butter-theme-dark 0.0.1 [1]
+ --- ...
 ```
