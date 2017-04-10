@@ -1,2 +1,2 @@
 # honey-butter
-Simple bot that search for butter flavors 
+A simple bot that searches for `butter-themes`
