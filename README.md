@@ -22,7 +22,8 @@ npm test
  Searching for themes...
 
  Results found: 2 official themes, 0 third-party, 2 total themes
- --- butter-theme: butter-theme-pink 0.0.1 [0]
- --- butter-theme: butter-theme-dark 0.0.1 [1]
+ 
+ --- butter-theme(official): butter-theme-pink 0.0.1 [0]
+ --- butter-theme(official): butter-theme-dark 0.0.1 [1]
  --- ...
 ```
