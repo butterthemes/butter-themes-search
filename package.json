@@ -3,8 +3,8 @@
     "description": "A simple bot for butter-themes",
     "version": "0.0.1",
     "main": "index.js",
-    "repository": "butterthemes/butter-theme-dark",
-    "bugs": "https://github.com/butterthemes/butter-theme-dark/issues",
+    "repository": "btzr-io/honey-butter",
+    "bugs": "https://github.com/btzr-io/honey-butter/issues",
     "author": "Baltazar Gomez <btzr.io@gmail>",
     "license": "MIT",
     "keywords": [
