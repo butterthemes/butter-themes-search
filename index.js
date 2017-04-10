@@ -35,10 +35,8 @@ const config = {
     headers: api.headers
 };
 
-//Modeule methods
-const m = {};
-
-m.search = (callback) => utils.getJson(config, (data) => {
+//Modeule
+module.exports = (callback) => utils.getJson(config, (data) => {
 
         //Store vaLid themes...
         let temp = [];
@@ -73,5 +71,3 @@ m.search = (callback) => utils.getJson(config, (data) => {
         });
     });
 });
-
-module.exports = m;
