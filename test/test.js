@@ -7,15 +7,15 @@ butterThemes.search((results) => {
         official = [],
         thirdParty = [];
     //Get search stats...
-    resuts.map((item, index) => {
+    results.map((item, index) => {
         let verify = (item.official) ? "official" : "third-party";
-        let data = " --- butter-theme(" + verify + "): " + item.name + " v:"item.version + " [" + index + "]";
+        let data = " --- butter-theme(" + verify + "): " + item.name + " v:" + item.version + " [" + index + "]";
         (item.official) ? official.push(index) : thirdParty.push(index);
         themes.push(data);
-        
+
     });
     //Print stats ...
-    console.log(" Results found:", official.length + " official,", thirdparty.length + " third-party,", themes.length + " total.");
+    console.log(" Results found:", official.length + " official,", thirdParty.length + " third-party,", themes.length + " total.");
     //Print results...
-    results.map((theme) => console.log(theme));
+    themes.map((i) => console.log(i));
 });
