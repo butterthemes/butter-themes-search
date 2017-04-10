@@ -2,7 +2,7 @@ const api = require("./src/api")
 const utils = require("./src/utils");
 
 //Raw file from github repository
-const getRaw = (opts, callback) => utils.getJson({
+const rawJson = (opts, callback) => utils.getJson({
     hostname: api.raw,
     path: '/' + opts.user + '/' + opts.repository + '/' + (opts.branch || 'master') + '/' + opts.filename,
     headers: api.headers
@@ -22,7 +22,7 @@ const parsePackage = (package, repository) => ({
     url: {
         repository: repository.html_url,
         git: repository.git_url,
-        css: "https://" + api.raw + "/" + repository.name + "/" + repository.name + repository.default_branch + "/index.css",
+        css: "https://" + api.raw + "/" + repository.name + "/" + repository.name + (repository.default_branch || "master") + "/index.css",
         butter:  repository.html_url.replace('https://', api.protocol)
         }
 });
@@ -47,10 +47,10 @@ m.search = (callback) => utils.getJson(config, (data) => {
         });
         //Raw package.json form repository
         themes.map((item, index) => {
-        getRaw({
+        rawJson({
             user: item.owner.login,
             repository: item.name,
-            branch: item.default_branch || 'master',
+            branch: item.default_branch,
             filename: 'package.json'
         }, (package) => {
             //Get theme relevant data...
