@@ -36,26 +36,44 @@ const config = {
 
 //Modeule methods
 const m = {};
+
 m.search = (callback) => utils.getJson(config, (data) => {
-        //Store vaLid themes
-        let themes = [];
+
+        //Store vaLid themes...
+        let temp = [];
         data.items.map((item, index) => {
+
             //Check for themes...
             if (item.name.substring(0, 13) == "butter-theme-") {
-                themes.push(item);
+                temp.push(item);
             }
         });
+
+        //Store parsed themes...
+        let themes = [];
+
         //Raw package.json form repository
-        themes.map((item, index) => {
-        rawJson({
-            user: item.owner.login,
-            repository: item.name,
-            branch: item.default_branch,
-            filename: 'package.json'
-        }, (package) => {
-            //Get theme relevant data...
-            let theme = parsePackage(package, item);
-            callback(theme, index);
+        temp.map((item, index) => {
+
+            //Raw package.json form repository
+            rawJson({
+                user: item.owner.login,
+                repository: item.name,
+                branch: item.default_branch,
+                filename: 'package.json'
+            }, (package) => {
+
+                //Get theme relevant data...
+                let theme = parsePackage(package, item);
+                let last = temp.leght - 1;
+
+                //Push parsed theme
+                themes.push(item);
+
+                //Send all themes
+                if (index === last) {
+                    Callback(themes);
+                }
         });
     });
 });
