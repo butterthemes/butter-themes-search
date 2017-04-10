@@ -1,4 +1,4 @@
-   Honey-butter, a simple bot that helps to fetch and analyze `butter-themes` from github.
+   butter-themes-search, a simple module to fetch and analyze `butter-themes` from github repositories.
    Copyright (C) 2017 Baltazar Gomez
 
    This program is free software: you can redistribute it and/or modify
