@@ -65,7 +65,8 @@ m.search = (callback) => utils.getJson(config, (data) => {
                 themes[index] = theme;
 
                 //Send all themes
-                if (index === temp.length - 1) {
+                let last =  temp.length - 1;
+                if (index === last) {
                     callback(themes);
                 }
         });
