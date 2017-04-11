@@ -1,7 +1,7 @@
 {
   "name": "butter-themes-search",
   "description": "A simple module to fetch and analizye butter-themes",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "main": "index.js",
   "repository": "btzr-io/butter-themes-search",
   "bugs": "https://github.com/btzr-io/butter-themes-search/issues",
