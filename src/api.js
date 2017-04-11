@@ -1,6 +1,6 @@
 module.exports = {
-    raw: "rawgit.com",
-    github: "api.github.com",
+    raw: "https://rawgit.com/",
+    github: "https://api.github.com/",
     protocol: "butter-themes://",
     headers: {
         //Enable topics
