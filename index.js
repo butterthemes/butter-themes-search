@@ -9,10 +9,10 @@ const rawJson = (opts, callback) => utils.getJson({
 }, callback);
 
 //Parse relevant information from package.json / github repository
-const parsePackage = (package, repository) => ({
-    name: (package.name || repository.name),
-    version: (package.version || "0.0.0"),
-    description: (package.description|| repository.description),
+const parsePackage = (data, repository) => ({
+    name: (data.name || repository.name),
+    version: (data.version || "0.0.0"),
+    description: (data.description|| repository.description),
     author: repository.owner.login,
     official: (repository.owner.login === "butterthemes") ? true : false,
     stats: {
@@ -58,9 +58,9 @@ module.exports = (callback) => utils.getJson(config, (data) => {
                 repository: item.name,
                 branch: item.default_branch,
                 filename: 'package.json'
-            }, (package) => {
+            }, (json) => {
                 //Get theme relevant data & push it!
-                let theme = parsePackage(package, item);
+                let theme = parsePackage(json, item);
                 themes[index] = theme;
 
                 //Send all themes
