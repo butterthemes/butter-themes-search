@@ -17,8 +17,8 @@ const parsePackage = (data, repository) => ({
     official: (repository.owner.login === "butterthemes") ? true : false,
     stats: {
         stars: repository.stargazers_count,
-        forks: repository.forks_count,
-        tags: repository.topics
+        forks: repository.forks_count
+        //tags: repository.topics
     },
     url: {
         repository: repository.html_url,
