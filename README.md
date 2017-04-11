@@ -1,9 +1,12 @@
 # buttter-themes-search
+
 A simple module to fetch and analyze `butter-themes` from github repositories.
+
 ### Install
 ```SHELL
   npm install buttter-themes-search
 ```
+
 ### Usage
 ```JS
   const search = require('butter-themes-search');
@@ -14,6 +17,7 @@ A simple module to fetch and analyze `butter-themes` from github repositories.
             themes.map((a, b) => console.log(a, b));
         });
 ```
+
 ### Test
 ```SHELL
 npm test
