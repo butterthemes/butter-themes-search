@@ -1,55 +1,24 @@
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest,
-    api = require('./api.js'),
-    utils = {};
+const util = {},
+      got = require('got');
 
-utils.getJson = function(url, callback){
-    var request = new XMLHttpRequest();
+//Raw json file from github
+util.raw = (user, repo, branch, filename, callback) => {
+     got( 'https://rawgit.com/' + user + '/' + repo + '/' + ( branch || 'master') + '/' + filename,
+        { json: true, retries: 0})
+        .then( res => callback(res.body))
+        .catch(e => console.error(e))
+}
 
-    request.open('GET',url, true);
+//Parse relevant data
+util.parseTheme  = (json, git) => ({
+    name: json.name,
+    version: json.version,
+    author: git.owner.login,
+    urls: {
+        github: git.html_url,
+        css: 'https://rawgit.com/' + git.owner.login + '/' + git.name + '/' + ( git.default_branch || 'master') + '/' + (json.main || 'index.css')
+    }
+});
 
-    //Set Headers
-    request.setRequestHeader('User-Agent', api.headers["User-Agent"]);
-
-    request.onload = function() {
-      if (request.status >= 200 && request.status < 400) {
-        // Success!
-        var data = JSON.parse(request.responseText);
-        callback(data);
-      } else {
-          console.error("status: " + request.status);
-        // We reached our target server, but it returned an error
-     }
-    };
-    request.onerror = function(e) {console.error(e)};
-    request.send();
-};
-
-
-utils.rawJson = function(opts, callback) {
-     utils.getJson( api.raw + opts.user + '/' + opts.repository + '/' + (opts.branch || 'master') + '/' + opts.filename, callback)
-};
-
- //Parse relevant information from package.json / github repository
- utils.parsePackage = function (data, repo) {
-     return {
-         name: (data.name || repo.name),
-         version: (data.version || "0.0.0"),
-         description: (data.description|| repo.description),
-         author: repo.owner.login,
-         official: (repo.owner.login === "butterthemes") ? true : false,
-         stats: {
-             stars: repo.stargazers_count,
-             forks: repo.forks_count
-             //tags: repository.topics
-         },
-         url: {
-             repository: repo.html_url,
-             git: repo.git_url,
-             css: api.raw  + repo.name + "/" + repo.name + (repo.default_branch || "master") + "/index.css",
-             butter:  repo.html_url.replace('https://', api.protocol)
-         }
-     }
- };
-
-//Export ->
-module.exports = utils;
+//Export...
+module.exports = util;

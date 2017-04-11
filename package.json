@@ -17,6 +17,6 @@
     "test": "node ./test/test.js"
   },
   "dependencies": {
-    "xmlhttprequest": "^1.8.0"
+    "gh-got": "^5.0.0"
   }
 }
