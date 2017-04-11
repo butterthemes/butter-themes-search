@@ -8,7 +8,7 @@ const config = {
     headers: api.headers
 };
 
-//Modeule
+//Module
 module.exports = (callback) => utils.getJson(config, (data) => {
 
         //Store vaLid themes...
@@ -23,24 +23,27 @@ module.exports = (callback) => utils.getJson(config, (data) => {
 
         //Store parsed themes...
         let themes = [];
-        //Raw package.json form repository
+
+        //Raw package.json from repository
         temp.map((item, index) => {
-            //Raw package.json form repository
+
+            //Raw package.json from repository
             utils.rawJson({
+
                 user: item.owner.login,
                 repository: item.name,
                 branch: item.default_branch,
                 filename: 'package.json'
+
             }, (json) => {
+
                 //Get theme relevant data & push it!
                 let theme = utils.parsePackage(json, item);
                 themes[index] = theme;
 
                 //Send all themes
                 let last =  temp.length - 1;
-                if (index === last) {
-                    callback(themes);
-                }
+                if (index === last) callback(themes);
         });
     });
 });
