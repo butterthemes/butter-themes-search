@@ -1,24 +1,36 @@
-const util = {},
-      got = require('got');
+const request = require('superagent'),
+      util = {};
 
-//Raw json file from github
-util.raw = (user, repo, branch, filename, callback) => {
-     got( 'https://rawgit.com/' + user + '/' + repo + '/' + ( branch || 'master') + '/' + filename,
-        { json: true, retries: 0})
-        .then( res => callback(res.body))
-        .catch(e => console.error(e))
+//Get request...
+util.getJson = (url, q, callback) => {
+    request
+    .get(url)
+    .query(q)
+    .set('Accept', 'application/json')
+    .end(function(err, res){
+         if(!err) {
+             callback(res.body)
+         } else {
+             console.error(err)
+         }
+
+    })
 }
 
-//Parse relevant data
-util.parseTheme  = (json, git) => ({
-    name: json.name,
-    version: json.version,
+//Raw json file from github
+util.rawJson = (user, repo, branch, file, callback) => util.getJson('https://rawgit.com/'+user+'/'+repo+'/'+(branch||'master')+'/'+file, null, callback);
+
+//Parse github repository
+util.parseTheme = (pack, git) => ({
+    name: pack.name,
+    version: pack.version,
+    description: pack.description || git.description,
     author: git.owner.login,
-    urls: {
+    url: {
         github: git.html_url,
-        css: 'https://rawgit.com/' + git.owner.login + '/' + git.name + '/' + ( git.default_branch || 'master') + '/' + (json.main || 'index.css')
+        css: "http://rawgit.com/" + git.owner.login + "/" + git.name + "/" + git.default_branch + (pack.main || "index.css")
     }
-});
+})
 
 //Export...
 module.exports = util;

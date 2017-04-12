@@ -17,6 +17,6 @@
     "test": "node ./test/test.js"
   },
   "dependencies": {
-    "gh-got": "^5.0.0"
+    "superagent": "^3.5.2"
   }
 }
