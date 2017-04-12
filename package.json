@@ -1,20 +1,22 @@
 {
-    "name": "butter-themes-search",
-    "description": "A simple module to fetch and analizye butter-themes",
-    "version": "0.0.2",
-    "main": "index.js",
-    "repository": "btzr-io/butter-themes-search",
-    "bugs": "https://github.com/btzr-io/butter-themes-search/issues",
-    "author": "Baltazar Gomez <btzr.io@gmail>",
-    "license": "GPL-3.0",
-    "keywords": [
-        "butter",
-        "search",
-        "theme",
-        "themes"
-    ],
-    "scripts": {
-        "test": "node ./test/test.js"
-    },
-    "dependencies": {}
+  "name": "butter-themes-search",
+  "description": "A simple module to fetch and analizye butter-themes",
+  "version": "0.2.1",
+  "main": "index.js",
+  "repository": "btzr-io/butter-themes-search",
+  "bugs": "https://github.com/btzr-io/butter-themes-search/issues",
+  "author": "Baltazar Gomez <btzr.io@gmail>",
+  "license": "GPL-3.0",
+  "keywords": [
+    "butter",
+    "search",
+    "theme",
+    "themes"
+  ],
+  "scripts": {
+    "test": "node ./test/test.js"
+  },
+  "dependencies": {
+    "superagent": "^3.5.2"
+  }
 }

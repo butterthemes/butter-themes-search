@@ -1,73 +1,33 @@
-const api = require("./src/api")
-const utils = require("./src/utils");
+var util = require("./src/utils"),
+    url = 'search/repositories?q=butter+theme+language:css+fork:false';
 
-//Raw file from github repository
-const rawJson = (opts, callback) => utils.getJson({
-    hostname: api.raw,
-    path: '/' + opts.user + '/' + opts.repository + '/' + (opts.branch || 'master') + '/' + opts.filename,
-    headers: api.headers
-}, callback);
+//Module...
+module.exports = function(callback) {
 
-//Parse relevant information from package.json / github repository
-const parsePackage = (package, repository) => ({
-    name: (package.name || repository.name),
-    version: (package.version || "0.0.0"),
-    description: (package.description|| repository.description),
-    author: repository.owner.login,
-    official: (repository.owner.login === "butterthemes") ? true : false,
-    stats: {
-        stars: repository.stargazers_count,
-        forks: repository.forks_count,
-        tags: repository.topics
-    },
-    url: {
-        repository: repository.html_url,
-        git: repository.git_url,
-        css: "https://" + api.raw + "/" + repository.name + "/" + repository.name + (repository.default_branch || "master") + "/index.css",
-        butter:  repository.html_url.replace('https://', api.protocol)
-        }
-});
+     util.getJson('https://api.github.com/search/repositories', {q:'butter+theme+language:css+fork:false'}, function(res) {
+         //Store items
+         var items = [],
+             themes = [];
 
-//Search request opts
-const config = {
-    hostname: api.github,
-    path: '/search/repositories?q=butter+theme+language:css+fork:false',
-    headers: api.headers
-};
+             res.items.map(function(item) {
+                 //Check for themes
+                 if(item.name.startsWith('butter-theme-')) items.push(item);
+             });
 
-//Modeule
-module.exports = (callback) => utils.getJson(config, (data) => {
+             items.map(function(item, index) {
 
-        //Store vaLid themes...
-        let temp = [];
-        data.items.map((item, index) => {
+                 //Load package,json
+                 util.rawJson(item.owner.login, item.name, item.default_branch, 'package.json', function(pack) {
 
-            //Check for themes...
-            if (item.name.substring(0, 13) == "butter-theme-") {
-                temp.push(item);
-            }
-        });
+                  //Parse theme relevant data
+                  var theme = util.parseTheme(pack, item);
 
-        //Store parsed themes...
-        let themes = [];
-        //Raw package.json form repository
-        temp.map((item, index) => {
-            //Raw package.json form repository
-            rawJson({
-                user: item.owner.login,
-                repository: item.name,
-                branch: item.default_branch,
-                filename: 'package.json'
-            }, (package) => {
-                //Get theme relevant data & push it!
-                let theme = parsePackage(package, item);
-                themes[index] = theme;
+                  //Add parsed theme
+                  themes.push(theme);
 
-                //Send all themes
-                let last =  temp.length - 1;
-                if (index === last) {
-                    callback(themes);
-                }
-        });
-    });
-});
+                  //Send all themes
+                  if(items.length === (index + 1)) callback(themes);
+              });
+          });
+      });
+  };
