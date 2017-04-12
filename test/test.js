@@ -1,15 +1,17 @@
-const search = require('../index.js');
+//Test...
+var search = require('../index.js');
 
 //Init....
 console.log("\n Searching for themes... \n");
 
-search(results => {
-    let themes = [],
+search(function(results) {
+
+    var themes = [],
         official = 0,
         thirdParty = 0;
 
     //Get search stats...
-    results.map((item, index) => {
+    results.map(function (item, index) {
         let verify = (item.official) ? "official" : "third-party";
         let data = " --- butter-theme(" + verify + "): " + item.name  + " " + item.version + " [" + index + "]";
         themes.push(data);
