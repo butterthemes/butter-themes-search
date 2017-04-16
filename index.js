@@ -4,29 +4,53 @@ var util = require("./src/utils"),
 //Module...
 module.exports = function(callback) {
 
-     util.getJson('https://api.github.com/search/repositories', {q:'butter+theme+language:css+fork:false'}, function(res) {
-         //Store items
-         var items = [],
-             themes = [];
+     util.getJson('https://api.github.com/search/repositories', {q:'butter+theme+language:css+fork:false'}, function(err, res) {
 
-             res.items.map(function(item) {
-                 //Check for themes
-                 if(item.name.startsWith('butter-theme-')) items.push(item);
-             });
+         if (err) return false;
 
-             items.map(function(item, index) {
+         //Store themes
+         var themes = [];
 
-                 //Load package,json
-                 util.rawJson(item.owner.login, item.name, item.default_branch, 'package.json', function(pack) {
+         //Fix index bug
+         var fixed_index = 0;
 
-                  //Parse theme relevant data
-                  var theme = util.parseTheme(pack, item);
+         res.items.filter(function(a){
 
-                  //Add parsed theme
-                  themes.push(theme);
+             //Check for themes
+              return a.name.startsWith('butter-theme-');
 
-                  //Send all themes
-                  if(items.length === (index + 1)) callback(themes);
+         })
+
+         .map(function (item) {
+
+             //Get relevant data
+             return {
+                 name: item.name,
+                 author: item.owner.login,
+                 branch: item.default_branch,
+                 description: item.description,
+                 url: item.html_url
+             }
+         })
+
+         .forEach(function(item, index, arr) {
+
+              util.rawJson(item.author, item.name, item.branch, 'package.json', function(err, res) {
+
+                  if(!err) {
+
+                      //Parse theme relevant data
+                      var theme = util.parseTheme(res, item);
+
+                      //Add parsed theme
+                      themes.push(theme);
+                  }
+
+                  // Fixed index (BUG)
+                  fixed_index += 1;
+
+                  if(arr.length === fixed_index) callback(themes);
+
               });
           });
       });
