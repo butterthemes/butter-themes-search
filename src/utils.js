@@ -19,13 +19,16 @@ util.rawJson = function(user, repo, branch, file, callback){
 //Parse github repository
 util.parseTheme = function (pack, git){
     return {
-        name: pack.name,
-        version: pack.version,
+        name: pack.name || git.name,
+        version: pack.version || '0.0.0',
         description: pack.description || git.description,
-        author: git.author,
+        author: git.author || pack.author,
+        stars: git.stargazers || 0,
+        is_official: (git.author==="butterthemes") ? true : false,
         url: {
             github: git.url,
-            css: "http://rawgit.com/" + git.author + "/" + git.name + "/" + git.branch + (pack.main || "index.css")
+            butter: git.url.replace('https', 'butter-themes'),
+            css: "http://rawgit.com/" + git.author + "/" + git.name + "/" + git.branch + "/" + (pack.main || "index.css")
         }
     }
 };

@@ -29,7 +29,8 @@ module.exports = function(callback) {
                  author: item.owner.login,
                  branch: item.default_branch,
                  description: item.description,
-                 url: item.html_url
+                 stargazers: item.stargazers_count,
+                 url: item.html_url,
              }
          })
 
