@@ -11,9 +11,9 @@ search(function(results) {
 
     //Get search stats...
     var themes = results.map(function (item, index) {
-        let verify = (item.official) ? "official" : "third-party";
-        let data = " --- butter-theme(" + verify + "): " + item.name  + " " + item.version + " [" + index + "]";
-        (item.official) ? official += 1  : thirdParty += 1;
+        let verify = (item.is_official) ? "official" : "third-party";
+        let data = " --- butter-theme(" + verify + "): " + item.name  + " " + item.version + " stars: " + item.stars;
+        (item.is_official) ? official += 1  : thirdParty += 1;
         return data;
     });
 
