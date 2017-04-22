@@ -28,7 +28,7 @@ util.parseTheme = function (pack, git){
         url: {
             github: git.url,
             butter: git.url.replace('https', 'butter-themes'),
-            css: "http://rawgit.com/" + git.author + "/" + git.name + "/" + git.branch + "/" + (pack.main || "index.css")
+            css: "https://rawgit.com/" + git.author + "/" + git.name + "/" + git.branch + "/" + (pack.main || "index.css")
         }
     }
 };
