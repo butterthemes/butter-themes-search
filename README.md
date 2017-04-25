@@ -13,13 +13,9 @@ A simple module to fetch and analyze `butter-themes` from github repositories.
 
 ### Usage
 ```JS
-  const search = require('butter-themes-search');
+  const getThemes = require('butter-themes-search');
         //Search for themes
-        search((themes) => {
-
-            //Do stuff with...
-            themes.map((a, b) => console.log(a, b));
-        });
+        getThemes(themes => themes.forEach(a => console.log(a)));
 ```
 
 ### Test
