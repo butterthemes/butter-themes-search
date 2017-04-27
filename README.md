@@ -1,5 +1,9 @@
 # buttter-themes-search
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+[![npm](https://img.shields.io/npm/v/butter-themes-search.svg)](https://www.npmjs.com/package/butter-themes-search)
+[![npm](https://img.shields.io/npm/dt/butter-themes-search.svg)](https://www.npmjs.com/package/butter-themes-search)
+
 A simple module to fetch and analyze `butter-themes` from github repositories.
 
 ### Install
@@ -9,13 +13,9 @@ A simple module to fetch and analyze `butter-themes` from github repositories.
 
 ### Usage
 ```JS
-  const search = require('butter-themes-search');
+  const getThemes = require('butter-themes-search');
         //Search for themes
-        search((themes) => {
-
-            //Do stuff with...
-            themes.map((a, b) => console.log(a, b));
-        });
+        getThemes(themes => themes.forEach(a => console.log(a)));
 ```
 
 ### Test
